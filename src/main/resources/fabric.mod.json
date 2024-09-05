@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "headpats",
+	"version": "${version}",
+	"name": "Headpat a Friend!",
+	"description": "Give heatpats to other players!",
+	"authors": [
+		"enjarai"
+	],
+	"contact": {
+		"homepage": "https://enjarai.dev/",
+		"sources": "https://github.com/enjarai/headpats",
+		"issues": "https://github.com/enjarai/headpats/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/headpats/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.enjarai.headpats.Headpats"
+		],
+		"client": [
+			"dev.enjarai.headpats.Headpats"
+		],
+		"cardinal-components-entity": [
+			"dev.enjarai.headpats.Headpats"
+		],
+		"modmenu": [
+			"dev.enjarai.headpats.config.ModMenuIntegration"
+		]
+	},
+	"custom": {
+		"cardinal-components": [
+			"headpats:petting"
+		]
+	},
+	"mixins": [
+		"headpats.mixins.json"
+	],
+	"depends": {
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
