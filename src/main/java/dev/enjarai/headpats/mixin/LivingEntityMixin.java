@@ -24,7 +24,8 @@ public abstract class LivingEntityMixin extends EntityMixin {
             )
     )
     private void turnBodyWhenPetting(CallbackInfo ci, @Local(ordinal = 1) LocalFloatRef g) {
-        if (Headpats.PETTING_COMPONENT.get(this).isPetting()) {
+        var component = Headpats.PETTING_COMPONENT.getNullable(this);
+        if (component != null && component.isPetting()) {
             g.set(getYaw());
         }
     }
