@@ -29,7 +29,10 @@ public class BipedEntityModelMixin<T extends LivingEntity> {
 
     @Inject(
             method = "setAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V",
-            at = @At("TAIL")
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/model/ModelPart;copyTransform(Lnet/minecraft/client/model/ModelPart;)V"
+            )
     )
     protected void positionModelParts(T livingEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
 

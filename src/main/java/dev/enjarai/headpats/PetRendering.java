@@ -50,6 +50,8 @@ public class PetRendering {
 
             head.pitch += multiplier * 0.4f;
             head.roll = -MathHelper.sin(petTime * 0.4f) * multiplier * 0.15f;
+        } else {
+            head.roll = 0;
         }
     }
 

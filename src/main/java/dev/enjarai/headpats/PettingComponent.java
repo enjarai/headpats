@@ -7,6 +7,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import org.jetbrains.annotations.Nullable;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
@@ -95,7 +96,8 @@ public class PettingComponent implements AutoSyncedComponent, ServerTickingCompo
         prevPettedMultiplier = pettedMultiplier;
         if (isBeingPet()) {
             if (pettedTicks % 40 == 0 && ModConfig.INSTANCE.pettedPlayersPurr) {
-                player.playSound(SoundEvents.ENTITY_CAT_PURR);
+                player.getWorld().playSoundFromEntity(player, SoundEvents.ENTITY_CAT_PURR,
+                        SoundCategory.PLAYERS, 1f, player.getSoundPitch());
             }
 
             pettedTicks++;

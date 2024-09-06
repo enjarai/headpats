@@ -11,6 +11,8 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
@@ -42,11 +44,18 @@ public class Headpats implements ModInitializer, ClientModInitializer, EntityCom
 			if (client.player != null) {
 				var pettingComponent = PETTING_COMPONENT.get(client.player);
 				if (pettingComponent.isPetting()) {
-					if (!client.options.useKey.isPressed() || !pettingComponent.isPetting(client.targetedEntity)
-							|| !client.player.getMainHandStack().isEmpty() || client.player.squaredDistanceTo(client.targetedEntity) > 1.5*1.5) {
-						ClientPlayNetworking.send(new PettingC2SPacket(-1));
-						pettingComponent.stopPetting();
+					if (client.crosshairTarget != null && client.targetedEntity instanceof PlayerEntity otherEntity) {
+						var hitPos = client.crosshairTarget.getPos().subtract(otherEntity.getPos());
+						double y = hitPos.y / (otherEntity.getScale() * otherEntity.getScaleFactor());
+						double height = otherEntity.getHeight() / (otherEntity.getScale() * otherEntity.getScaleFactor());
+						if (y > height - 0.5 && client.options.useKey.isPressed() && pettingComponent.isPetting(otherEntity)
+								&& client.player.getMainHandStack().isEmpty() && client.player.squaredDistanceTo(otherEntity) < 1.5 * 1.5) {
+							return;
+						}
 					}
+
+					ClientPlayNetworking.send(new PettingC2SPacket(-1));
+					pettingComponent.stopPetting();
 				}
 			}
 		});
