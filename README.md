@@ -8,6 +8,17 @@ Cute critters of all shapes and sizes rejoice!
 
 ![Banner](https://i.enjarai.dev/u/ZkziGO.gif)
 
+## Setup
+
+For this mod to function properly, it needs to be installed on both the client and server. 
+A plugin version is available for Paper server owners.
+
+When the mod on a server that doesn't have it installed, you'll still be able to heatpat, 
+but it wont be visible to other players, even if they do have the mod.
+
+Joining a server that has this mod loaded without having it on your client is also **fully supported**. 
+Players that do have it will see and be able to give headpats, while players that don't cannot.
+
 ## Configuration
 
 This mod can make use of [Mod Menu](https://modrinth.com/mod/modmenu) 
