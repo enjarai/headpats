@@ -17,9 +17,12 @@ import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 import java.util.UUID;
 
 public class PettingComponent implements AutoSyncedComponent, ServerTickingComponent, ClientTickingComponent {
+    // Non-persistent synced fields to keep track of states
     @Nullable
     private UUID petting;
     private int incomingPetters;
+
+    // Client fields to keep track of animation
     public int prevPettingTicks;
     public int pettingTicks;
     public float prevPettingMultiplier;

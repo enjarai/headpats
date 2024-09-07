@@ -28,19 +28,15 @@ public class PetRendering {
         var petting = Headpats.PETTING_COMPONENT.get(player);
 
         if (petting.pettingMultiplier > 0) {
-            if (player instanceof ClientPlayerEntity && MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON) {
-                return;
-            }
-
             var petTime = MathHelper.lerp(tickDelta, (float) petting.prevPettingTicks, (float) petting.pettingTicks);
             var multiplier = MathHelper.lerp(tickDelta, petting.prevPettingMultiplier, petting.pettingMultiplier);
 
             if (player.getMainArm() == Arm.RIGHT) {
-                rightArm.pitch -= multiplier * 2.1f;
-                rightArm.yaw -= MathHelper.sin(petTime * 0.4f) * multiplier * 0.5f;
+                rightArm.pitch = rightArm.pitch * (1 - multiplier) - multiplier * 2.1f;
+                rightArm.yaw = rightArm.yaw * (1 - multiplier) - MathHelper.sin(petTime * 0.4f) * multiplier * 0.5f;
             } else {
-                leftArm.pitch -= multiplier * 2.1f;
-                leftArm.yaw -= MathHelper.sin(petTime * 0.4f) * multiplier * 0.5f;
+                leftArm.pitch = leftArm.pitch * (1 - multiplier) - multiplier * 2.1f;
+                leftArm.yaw = leftArm.yaw * (1 - multiplier) - MathHelper.sin(petTime * 0.4f) * multiplier * 0.5f;
             }
         }
 
@@ -53,6 +49,16 @@ public class PetRendering {
         } else {
             head.roll = 0;
         }
+    }
+
+    public static void fixFirstPersonAngles(PlayerEntity player, float tickDelta, ModelPart arm, ModelPart sleeve) {
+        var petting = Headpats.PETTING_COMPONENT.get(player);
+
+        var multiplier = 1 - MathHelper.lerp(tickDelta, petting.prevPettingMultiplier, petting.pettingMultiplier);
+        arm.yaw *= multiplier;
+        arm.roll *= multiplier;
+        sleeve.yaw *= multiplier;
+        sleeve.roll *= multiplier;
     }
 
     public static @Nullable Float getCameraRoll(PlayerEntity player, float tickDelta) {

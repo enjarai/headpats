@@ -1,1 +1,3 @@
-- Fix dumb crash bug in non-empty worlds.
+- Fixed offhand items moving along with the funny petting motion.
+- Fixed compatibility with other great and amazing and perfect and pretty and beautiful mods modifying arm positions. (https://modrinth.com/mod/blahaj-of-undying :3)
+- Fixed compatibility with other silly mods rendering third person animations in first person because they are silly.
