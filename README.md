@@ -6,7 +6,7 @@ Well, now you can!
 This mod lets you headpat other players by holding right-click on their head.
 Cute critters of all shapes and sizes rejoice!
 
-![Banner](https://i.enjarai.dev/u/ZkziGO.gif)
+![Third person headpatting](https://i.enjarai.dev/u/ZkziGO.gif)
 
 ## Setup
 
@@ -18,6 +18,8 @@ but it won't be visible to other players, even if they do have the mod.
 
 Joining a server that has this mod loaded without having it on your client is also **fully supported**. 
 Players that do have it will see and be able to give headpats, while players that don't cannot.
+
+![First person headpatting](https://i.enjarai.dev/u/As4j7e.gif)
 
 ## Configuration
 
