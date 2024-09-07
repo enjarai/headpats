@@ -1,0 +1,1 @@
+- Fixed an issue where players could get stuck in "being pet" mode after being pet by many people at once.

@@ -1,13 +1,18 @@
 package dev.enjarai.headpats;
 
+import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import com.google.common.io.ByteStreams;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.Utf8String;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -100,5 +105,30 @@ public final class Headpats extends JavaPlugin implements Listener {
     public void onDisable() {
         getServer().getMessenger().unregisterOutgoingPluginChannel(this);
         getServer().getMessenger().unregisterIncomingPluginChannel(this);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        var uuid = event.getPlayer().getUniqueId();
+        pettedCounts.remove(uuid);
+        pettingMap.remove(uuid);
+        pettingMap.values().removeIf(u -> u.equals(uuid));
+    }
+
+    @EventHandler
+    public void onServerTickStart(ServerTickStartEvent event) {
+        if (event.getTickNumber() % 20 == 0) {
+            for (UUID uuid : pettedCounts.keySet()) {
+                if (!pettingMap.containsValue(uuid)) {
+                    pettedCounts.remove(uuid);
+
+                    var player = getServer().getPlayer(uuid);
+                    if (player != null) {
+                        var pettedBuf = getSyncBuf(((CraftPlayer) player).getHandle().getId(), uuid);
+                        sendSyncBuf(uuid, pettedBuf);
+                    }
+                }
+            }
+        }
     }
 }
