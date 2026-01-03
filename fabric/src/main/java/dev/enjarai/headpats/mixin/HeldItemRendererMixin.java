@@ -2,7 +2,7 @@ package dev.enjarai.headpats.mixin;
 
 import dev.enjarai.headpats.PetRendering;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class HeldItemRendererMixin {
                     target = "Lnet/minecraft/item/ItemStack;isEmpty()Z"
             )
     )
-    private void pettingHand(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+    private void pettingHand(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, OrderedRenderCommandQueue queue, int light, CallbackInfo ci) {
         if (hand == Hand.MAIN_HAND) {
             PetRendering.modifyHandMatrix(player, tickDelta, matrices);
         }

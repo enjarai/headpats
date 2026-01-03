@@ -48,7 +48,7 @@ public class Headpats implements ModInitializer, ClientModInitializer, EntityCom
 				var pettingComponent = PETTING_COMPONENT.get(client.player);
 				if (pettingComponent.isPetting()) {
 					if (client.crosshairTarget != null && client.targetedEntity instanceof PlayerEntity otherEntity) {
-						var hitPos = client.crosshairTarget.getPos().subtract(otherEntity.getPos());
+						var hitPos = client.crosshairTarget.getPos().subtract(otherEntity.getSyncedPos());
 						double y = hitPos.y / (otherEntity.getScale() * otherEntity.getScaleFactor());
 						double height = otherEntity.getHeight() / (otherEntity.getScale() * otherEntity.getScaleFactor());
 						if (y > height - 0.5 && client.options.useKey.isPressed() && pettingComponent.isPetting(otherEntity)

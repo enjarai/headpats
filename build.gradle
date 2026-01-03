@@ -1,4 +1,4 @@
 plugins {
     id "me.modmuss50.mod-publish-plugin" version "0.4.4" apply false
-    id 'fabric-loom' version '1.11-SNAPSHOT' apply false
+    id 'fabric-loom' version '1.14-SNAPSHOT' apply false
 }

@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.storage.ReadView;
@@ -74,7 +75,7 @@ public class PettingComponent implements AutoSyncedComponent, ServerTickingCompo
 
     @Override
     public void serverTick() {
-        if (petting != null && player.getWorld().getPlayerByUuid(petting) == null) {
+        if (petting != null && player.getEntityWorld().getPlayerByUuid(petting) == null) {
             stopPetting();
         }
     }
@@ -99,7 +100,7 @@ public class PettingComponent implements AutoSyncedComponent, ServerTickingCompo
         prevPettedMultiplier = pettedMultiplier;
         if (isBeingPet()) {
             if (pettedTicks % 40 == 0 && ModConfig.INSTANCE.pettedPlayersPurr) {
-                player.getWorld().playSoundFromEntityClient(player, SoundEvents.ENTITY_CAT_PURR,
+                player.getEntityWorld().playSoundFromEntityClient(player, SoundEvents.ENTITY_CAT_PURR,
                         SoundCategory.PLAYERS, 1f, player.getSoundPitch());
             }
 
@@ -125,13 +126,13 @@ public class PettingComponent implements AutoSyncedComponent, ServerTickingCompo
 
     public void stopPetting() {
         if (petting != null) {
-            var server = player.getServer();
+            var world = player.getEntityWorld();
 
             PlayerEntity other;
-            if (server != null) {
-                other = server.getPlayerManager().getPlayer(petting);
+            if (world instanceof ServerWorld serverWorld) {
+                other = serverWorld.getServer().getPlayerManager().getPlayer(petting);
             } else {
-                other = player.getWorld().getPlayerByUuid(petting);
+                other = world.getPlayerByUuid(petting);
             }
 
             if (other != null) {
