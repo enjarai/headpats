@@ -19,7 +19,7 @@ public class PetRendering {
             var petTime = MathHelper.lerp(tickDelta, (float) petting.prevPettingTicks, (float) petting.pettingTicks);
             var multiplier = MathHelper.lerp(tickDelta, petting.prevPettingMultiplier, petting.pettingMultiplier);
             matrices.translate(player.getMainArm() == Arm.RIGHT ? 1 : -1, -1, 0);
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.sin(petTime * 0.4f) * 16.0f * multiplier));
+            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float) Math.sin(petTime * 0.4f) * 16.0f * multiplier));
             matrices.translate(player.getMainArm() == Arm.RIGHT ? -1 : 1, 1, 0);
         }
     }
@@ -45,10 +45,10 @@ public class PetRendering {
 
             if (arm == Arm.RIGHT) {
                 rightArm.pitch = rightArm.pitch * (1 - pettingMultiplier) - pettingMultiplier * 2.1f;
-                rightArm.yaw = rightArm.yaw * (1 - pettingMultiplier) - MathHelper.sin(pettingTime * 0.4f) * pettingMultiplier * 0.5f;
+                rightArm.yaw = rightArm.yaw * (1 - pettingMultiplier) - (float) Math.sin(pettingTime * 0.4f) * pettingMultiplier * 0.5f;
             } else {
                 leftArm.pitch = leftArm.pitch * (1 - pettingMultiplier) - pettingMultiplier * 2.1f;
-                leftArm.yaw = leftArm.yaw * (1 - pettingMultiplier) - MathHelper.sin(pettingTime * 0.4f) * pettingMultiplier * 0.5f;
+                leftArm.yaw = leftArm.yaw * (1 - pettingMultiplier) - (float) Math.sin(pettingTime * 0.4f) * pettingMultiplier * 0.5f;
             }
         }
 
@@ -57,7 +57,7 @@ public class PetRendering {
 
         if (pettedMultiplier > 0) {
             head.pitch += pettedMultiplier * 0.4f;
-            head.roll = -MathHelper.sin(pettedTime * 0.4f) * pettedMultiplier * 0.15f;
+            head.roll = -(float) Math.sin(pettedTime * 0.4f) * pettedMultiplier * 0.15f;
         } else {
             head.roll = 0;
         }
@@ -81,7 +81,7 @@ public class PetRendering {
             var petTime = MathHelper.lerp(tickDelta, (float) petting.prevPettedTicks, (float) petting.pettedTicks);
             var multiplier = MathHelper.lerp(tickDelta, petting.prevPettedMultiplier, petting.pettedMultiplier);
 
-            return -MathHelper.sin(petTime * 0.4f) * multiplier * 0.1f * (float) finalFirstPersonSwayStrength;
+            return -(float) Math.sin(petTime * 0.4f) * multiplier * 0.1f * (float) finalFirstPersonSwayStrength;
         }
 
         return null;
