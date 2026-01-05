@@ -20,7 +20,7 @@ public class BipedEntityModelMixin<T extends LivingEntityRenderState> {
     @Shadow @Final public ModelPart head;
 
     @Inject(
-            method = "animateArms(Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;F)V", //"setAngles(Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;)V",
+            method = "animateArms(Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;)V", //"setAngles(Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;)V",
             at = @At(
                     value = "HEAD"
                     //target = "Lnet/minecraft/client/render/entity/model/BipedEntityModel;animateArms(Lnet/minecraft/client/render/entity/state/BipedEntityRenderState;F)V"
