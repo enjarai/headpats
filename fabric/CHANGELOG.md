@@ -1,1 +1,1 @@
-- Updated to 1.21.6-7.
+- Updated to 1.21.10. (Thank you @pq-on-tempe2!)
