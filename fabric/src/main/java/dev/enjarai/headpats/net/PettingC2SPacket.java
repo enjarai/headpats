@@ -17,7 +17,7 @@ public record PettingC2SPacket(int entityId) implements CustomPayload {
 
     public void handle(ServerPlayNetworking.Context context) {
         if (entityId != -1) {
-            var target = context.player().getWorld().getEntityById(entityId);
+            var target = context.player().getEntityWorld().getEntityById(entityId);
             if (target instanceof PlayerEntity player) {
                 Headpats.PETTING_COMPONENT.get(context.player()).startPetting(player);
             }
