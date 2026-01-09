@@ -1,3 +1,10 @@
+> [!WARNING]
+> Like some of my other projects, this repository has been migrated to Codeberg.
+> Any new issues or pull requests here will be ignored, please create them over at the new repository.
+> 
+> New repository:
+> https://codeberg.org/enjarai/headpats
+
 # Headpat a Friend!
 
 Ever been in a situation where you wanted to take your arm, 
